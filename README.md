@@ -24,10 +24,10 @@ python3 py_MotherMachine.py
 
 ## Key Bindings
 
-- **Shift + Click:** Insert new breakpoints.
+- **Shift + Click:** Insert new breakpoints and track using the mouse position as the seed for the tracking algorithm.
 - **Control + Click:** Trim breakpoints after the clicked frame.
 - **Alt + Click:** Correct only the clicked breakpoint.
-- **Click:** Correct breakpoints from the clicked frame onwards.
+- **Click:** Correct breakpoints from the clicked frame onwards and track using the mouse position as the seed for the tracking algorithm.
 - **Enter:** Save or update breakpoints.
 - **+ / -:** Zoom in and out of the montage.
 - **Left / Right Arrow:** Move left or right through the montage.
@@ -54,5 +54,5 @@ This project is licensed under the [MIT](https://choosealicense.com/licenses/mit
 
 ## Aknowledgements
 
-We thank the help and input from past and present members of the Systems and Synthetic Laboratory at CCG-UNAM.
+We thank the help and input from past and present members of the [Systems Biology Laboratory](http://www.penamiller.com/lab/) at CCG-UNAM.
 
