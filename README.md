@@ -44,9 +44,7 @@ python3 py_MotherMachine.py
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
-This project is licensed under the MIT License - see the [license](LICENSE) file for details. 
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License - see the [license](LICENSE) file for details. 
 
 ## Aknowledgements
 
