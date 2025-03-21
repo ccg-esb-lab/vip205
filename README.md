@@ -22,7 +22,7 @@ Interactive Python tool for manual correction of segmentation and tracking error
 
 ## Data Analysis Notebooks
 
-**VIP205_Model.ipynb**  
+**[VIP205_Model.ipynb](VIP205_Model.ipynb)**  
 Implementation of a simple ODE model capturing toxin uptake and dilution during filamentation. Includes analytical exploration of SA/V dynamics and simulation of accumulation profiles under different growth modes.
 
 
