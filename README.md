@@ -25,10 +25,6 @@ Interactive Python tool for manual correction of segmentation and tracking error
 **[VIP205_Model.ipynb](VIP205_Model.ipynb)**  
 Implementation of a simple ODE model capturing toxin uptake and dilution during filamentation. Includes analytical exploration of SA/V dynamics and simulation of accumulation profiles under different growth modes.
 
-
-**[VIP205_MotherMachine_analysis.ipynb](VIP205_MotherMachine_analysis.ipynb)**  
-Preprocessing and general exploration of mother machine data, including IPTG induction effects and baseline growth parameters.
-
 **[VIP205_Microchomostat_analysis.ipynb](VIP205_Microchomostat_analysis.ipynb)**  
 Analysis of microchemostat experiments tracking OD dynamics under AMP and Cd exposure. Includes calculation of maximum growth rates and comparisons between filamented and control strains.
 
