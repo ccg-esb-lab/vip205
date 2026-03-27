@@ -1,0 +1,52 @@
+strain	time	IPTG	rep	count_n
+VIPdeltaRecA	180	No division (-IPTG)	r3.fcs	4785600
+VIPdeltaRecA	180	No division (-IPTG)	r2.fcs	3832100
+VIPdeltaRecA	180	No division (-IPTG)	r1.fcs	7563000
+VIPdeltaRecA	180	No division (-IPTG)	r3.fcs	3929900
+VIPdeltaRecA	180	No division (-IPTG)	r2.fcs	6528500
+VIPdeltaRecA	180	No division (-IPTG)	r1.fcs	9179500
+VIPdeltaRecA	180	Division (+IPTG)	r3.fcs	329023300
+VIPdeltaRecA	180	Division (+IPTG)	r2.fcs	273290700
+VIPdeltaRecA	180	Division (+IPTG)	r1.fcs	189453700
+VIPdeltaRecA	150	No division (-IPTG)	r3.fcs	4815700
+VIPdeltaRecA	150	No division (-IPTG)	r2.fcs	3849300
+VIPdeltaRecA	150	No division (-IPTG)	r1.fcs	7052900
+VIPdeltaRecA	150	Division (+IPTG)	r3.fcs	175265500
+VIPdeltaRecA	150	Division (+IPTG)	r2.fcs	148665900
+VIPdeltaRecA	150	Division (+IPTG)	r1.fcs	90480800
+VIPdeltaRecA	120	No division (-IPTG)	r3.fcs	4268800
+VIPdeltaRecA	120	No division (-IPTG)	r2.fcs	3434300
+VIPdeltaRecA	120	No division (-IPTG)	r1.fcs	7031900
+VIPdeltaRecA	120	Division (+IPTG)	r3.fcs	98208800
+VIPdeltaRecA	120	Division (+IPTG)	r2.fcs	72299700
+VIPdeltaRecA	120	Division (+IPTG)	r1.fcs	38508300
+VIPdeltaRecA	90	No division (-IPTG)	r3.fcs	3750700
+VIPdeltaRecA	90	No division (-IPTG)	r2.fcs	3052500
+VIPdeltaRecA	90	No division (-IPTG)	r1.fcs	6535700
+VIPdeltaRecA	90	Division (+IPTG)	r3.fcs	47267100
+VIPdeltaRecA	90	Division (+IPTG)	r2.fcs	31808500
+VIPdeltaRecA	90	Division (+IPTG)	r1.fcs	15562800
+VIPdeltaRecA	60	No division (-IPTG)	r3.fcs	3499300
+VIPdeltaRecA	60	No division (-IPTG)	r2.fcs	2643400
+VIPdeltaRecA	60	No division (-IPTG)	r1.fcs	6133400
+VIPdeltaRecA	60	Division (+IPTG)	r3.fcs	21049300
+VIPdeltaRecA	60	Division (+IPTG)	r2.fcs	11090400
+VIPdeltaRecA	60	Division (+IPTG)	r1.fcs	6243600
+VIPdeltaRecA	30	No division (-IPTG)	r3.fcs	3066600
+VIPdeltaRecA	30	No division (-IPTG)	r2.fcs	2288800
+VIPdeltaRecA	30	No division (-IPTG)	r1.fcs	5661900
+VIPdeltaRecA	30	Division (+IPTG)	r3.fcs	11526500
+VIPdeltaRecA	30	Division (+IPTG)	r2.fcs	5517600
+VIPdeltaRecA	30	Division (+IPTG)	r1.fcs	3239900
+VIPdeltaRecA	0	No division (-IPTG)	r1.fcs	3941000
+VIPdeltaRecA	0	No division (-IPTG)	r2.fcs	3054900
+VIPdeltaRecA	0	No division (-IPTG)	r1.fcs	4866500
+VIPdeltaRecA	0	Division (+IPTG)	r3.fcs	4674400
+VIPdeltaRecA	0	Division (+IPTG)	r2.fcs	2770600
+VIPdeltaRecA	0	Division (+IPTG)	r1.fcs	2246100
+VIPdeltaRecA	0	Division (+IPTG)	r3.fcs	3844400
+VIPdeltaRecA	0	Division (+IPTG)	r2.fcs	3232500
+VIPdeltaRecA	0	No division (-IPTG)	r3.fcs	1814700
+VIPdeltaRecA	0	No division (-IPTG)	r3.fcs	1781100
+VIPdeltaRecA	0	No division (-IPTG)	r2.fcs	1571800
+VIPdeltaRecA	0	Division (+IPTG)	r1.fcs	5473300
