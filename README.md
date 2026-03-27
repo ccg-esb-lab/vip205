@@ -6,7 +6,7 @@ Code used to generate figures and analyses for:
 O.B. Aguilar-Luviano, F. Santos-Escobar, S. Orozco-Barrera, and R. Peña-Miller
 
 **Data:** https://doi.org/10.5281/zenodo.19239573
-<img id="record-doi-badge" data-target="[data-modal='10.5281/zenodo.19239574']" title="Get the DOI badge!" src="/badge/DOI/10.5281/zenodo.19239574.svg" alt="10.5281/zenodo.19239574">
+<img id="record-doi-badge" data-target="[data-modal='10.5281/zenodo.19239574']" title="Get the DOI badge!" src="https://zenodo.org/badge/DOI/10.5281/zenodo.19239574.svg" alt="10.5281/zenodo.19239574">
 
 ## Overview
 
