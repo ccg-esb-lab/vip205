@@ -5,8 +5,7 @@ Code used to generate figures and analyses for:
 **Conditional filamentation enhances bacterial survival in toxic environments**  
 O.B. Aguilar-Luviano, F. Santos-Escobar, S. Orozco-Barrera, and R. Peña-Miller
 
-**Data:** https://doi.org/10.5281/zenodo.19239573
-<img id="record-doi-badge" data-target="[data-modal='10.5281/zenodo.19239574']" title="Get the DOI badge!" src="https://zenodo.org/badge/DOI/10.5281/zenodo.19239574.svg" alt="10.5281/zenodo.19239574">
+**Data:** <img id="record-doi-badge" data-target="[data-modal='10.5281/zenodo.19239574']" title="Get the DOI badge!" src="https://zenodo.org/badge/DOI/10.5281/zenodo.19239574.svg" alt="10.5281/zenodo.19239574">
 
 ## Overview
 
