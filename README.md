@@ -7,6 +7,10 @@ O.B. Aguilar-Luviano, F. Santos-Escobar, S. Orozco-Barrera, and R. Peña-Miller
 
 **Data:** https://doi.org/10.5281/zenodo.19239573
 
+## Overview
+
+This repository contains all the dta analysis and simulation code used to explore how inducible filamentation in *Escherichia coli* modulates survival under stress. We combined experimental assays (microchemostat, flow cytometry, and mother machine) with a simple mathematical model to quantify toxin accumulation and investigate the protective role of filamentation under exposure to antibiotics and heavy metals.
+
 ---
 
 ## Figures
@@ -64,13 +68,19 @@ O.B. Aguilar-Luviano, F. Santos-Escobar, S. Orozco-Barrera, and R. Peña-Miller
 
 ---
 
-## Utilities
+## Image Analysis Code
 
-- [`py_MotherMachine.py`](./py_MotherMachine.py)  
-  Python script for mother machine image processing, extraction of single-cell trajectories, and downstream quantification.
+**[py_MotherMachine.py](py_MotherMachine.py)**  
+Python script for processing kymograph data from mother machine experiments. Extracts single-cell trajectories to quantify elongation rates, division timing, and survival outcomes under different stress conditions.
 
-- [`muPy_viewer.py`](./muPy_viewer.py)  
-  Interactive viewer for visualization and manual correction of segmentation and tracking results.
+**[muPy_viewer.py](muPy_viewer.py)**  
+Interactive Python tool for manual correction of segmentation and tracking errors in microchemostat time-lapse experiments. Supports frame-by-frame validation of cell trajectories and fluorescence intensity measurements.
+
+---
+
+## Authors
+
+[OBAL/RPM] [@Systems Biology Lab, CCG-UNAM](https://github.com/ccg-esb-lab)
 
 ---
 
