@@ -1,0 +1,441 @@
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(here)
+```
+
+
+```{r}
+#load length data
+#NOTAS
+
+#una sola celula en el tiempo
+exp1_xy5_length<-
+here("data","cell_proliferation-test_microscopy","length", "experiment1_xy5_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor) %>%
+  dplyr::mutate(cell_id=1) %>%
+  dplyr::mutate(time=1:14)
+
+#dos células
+exp2_xy4_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy4_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor) %>%
+  dplyr::mutate(cell_id=rep(c(2,3),times=14)) %>%
+  dplyr::mutate(time=rep(c(1:14),each=2)) %>%
+  slice(c(2,1,3:n())) %>%
+  dplyr::arrange(cell_id,time)#se intercambiaron de lugar renglones 1 y 2
+
+exp2_xy12_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy12_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor) %>%
+  dplyr::slice(c(7:n())) %>%
+  dplyr::mutate(cell_id=4) %>%
+  dplyr::mutate(time=1:n())
+
+exp2_xy14_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy14_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor) %>%
+  dplyr::slice(c(7:n())) %>%
+  dplyr::mutate(cell_id=5) %>%
+  dplyr::mutate(time=c(1:n()))
+
+exp2_xy15_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy15_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor)  %>%
+  dplyr::mutate(cell_id=6) %>%
+  dplyr::mutate(time=c(1:n()))
+
+exp2_xy16_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy16_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor)  %>%
+  dplyr::mutate(cell_id=7) %>%
+  dplyr::mutate(time=c(1:n()))
+
+exp2_xy18_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy18_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor)  %>%
+  dplyr::mutate(cell_id=8) %>%
+  dplyr::slice(c(6:n())) %>%
+  dplyr::filter(row_number() %% 2 == 1) %>%
+  dplyr::mutate(time=c(1:n()))
+
+exp2_xy24_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy24_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor)  %>%
+  dplyr::mutate(cell_id=9) %>%
+  dplyr::slice(c(
+                 1,5,9,13,
+                 c(1:25*3+14)
+                 )) %>%
+  dplyr::mutate(time=c(1:n()))
+
+exp2_xy35_length <-
+here("data","cell_proliferation-test_microscopy","length", "experiment2_xy35_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Perim.,Major,Minor)  %>%
+  dplyr::mutate(cell_id=10) %>%
+  dplyr::mutate(time=c(1:n()))
+
+
+```
+
+
+
+
+
+```{r}
+#load RFP data
+#NOTAS
+
+#una sola celula en el tiempo
+exp1_xy5_RFP<-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment1_xy5_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1)
+
+#dos celulas
+exp2_xy4_RFP <-
+rbind(
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy4-cell1_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1) ,
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy4-cell2_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1) 
+)
+
+exp2_xy12_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy12_results.txt") |>
+  read.delim() %>%
+  dplyr::slice(c(7:n())) %>%
+  dplyr::select(Mean1)
+
+
+exp2_xy14_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy14_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1) %>%
+  dplyr::slice(c(7:n()))
+
+exp2_xy15_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy15_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1)
+
+exp2_xy16_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy16_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1)
+
+
+exp2_xy18_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy18_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1) %>%
+  dplyr::slice(-c(13:14))
+
+exp2_xy24_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy24_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1)
+
+exp2_xy35_RFP <-
+here("data","cell_proliferation-test_microscopy","RFP", "experiment2_xy35_results.txt") |>
+  read.delim() %>%
+  dplyr::select(Mean1)
+
+
+```
+
+
+
+```{r}
+# join
+cell_length <-
+rbind(exp1_xy5_length, # cell 1
+      exp2_xy4_length, # cell 2,3 #estas son la de la figura
+      exp2_xy12_length, # cell 4
+      exp2_xy14_length, # cell 5
+      exp2_xy15_length, # cell 6
+      exp2_xy16_length, # cell 7
+      exp2_xy18_length, # cell 8
+      exp2_xy24_length, # cell 9
+      exp2_xy35_length) # cell 10
+
+
+
+cell_RFP <-
+rbind(exp1_xy5_RFP, # cell 1
+      exp2_xy4_RFP, # cell 2,3 #estas son la de la figura
+      exp2_xy12_RFP, # cell 4
+      exp2_xy14_RFP, # cell 5
+      exp2_xy15_RFP, # cell 6
+      exp2_xy16_RFP, # cell 7
+      exp2_xy18_RFP, # cell 8
+      exp2_xy24_RFP, # cell 9
+      exp2_xy35_RFP) # cell 10
+
+
+cells<- cbind(cell_length,cell_RFP) %>%
+          dplyr::mutate(RFP=Mean1) %>%
+          dplyr::select(-c(Mean1))
+
+cells
+```
+
+
+```{r}
+
+#r = Minor / 2
+#L_c = (Perimeter - 2 * pi * r) / 2 #longitud del cilindro
+#L_total = L_c + 2 * r # longitud de la bacteria
+#V=πr2Lc+3/4(πr3)
+
+
+
+cells <-
+cells %>%
+  dplyr::mutate(time=(time-1)*10,
+                r=Minor/2,
+                Lc=(Perim. - 2*pi*r)/2,
+                length_cell= Lc + 2*r,
+                volume = pi*(r**2)*length_cell + (4/3)*pi*(r**3),
+                SA=2*pi**r*Lc + 4*pi*(r**2),
+                ratio=SA/volume)
+
+cells
+```
+
+```{r}
+cells %>%
+  dplyr::select(c(cell_id,time,RFP,Minor,r,Lc,length_cell)) %>%
+  write.table("data_microscopy.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+
+
+```{r}
+cells %>%
+  ggplot(aes(x=time,y=length_cell,group=cell_id)) +
+  geom_line() +
+  xlab("time (min)") +
+  ylab("cell length (micrometers)") +
+  theme_classic()
+```
+
+
+
+```{r}
+cells %>%
+  ggplot(aes(x = time, y = length_cell)) +
+  # líneas individuales (cada celda), todas en gris con alpha
+  geom_line(aes(group = cell_id), color = "grey50", alpha = 0.4, show.legend = FALSE) +
+  # línea de la media
+  stat_summary(fun = mean, geom = "line", color = "red", size = 1, show.legend = FALSE) +
+  scale_y_continuous(breaks = seq(0, max(cells$length_cell, na.rm = TRUE), by = 5)) +
+  xlab("time (min)") +
+  ylab("cell length (micrometers)") +
+  theme_classic()
+
+```
+
+
+
+```{r}
+
+cell_length_microscope <-
+cells %>%
+  ggplot(aes(x = time, y = length_cell)) +
+  # todas las células en gris
+  geom_line(aes(group = cell_id), color = "grey70",  show.legend = FALSE) +
+  # destacar células 2 y 3 en negro
+  geom_line(
+    data = subset(cells, cell_id %in% c(2, 3)),
+    aes(group = cell_id),
+    color = "black", size = 0.8, show.legend = FALSE
+  ) +
+  # línea de la pendiente (regresión lineal) en azul
+  #geom_smooth(aes(group = 1), method = "lm", se = FALSE, color = "blue", size = 1) +
+  # breaks de 5 en 5
+  scale_y_continuous(breaks = seq(0, max(cells$length_cell, na.rm = TRUE), by = 5)) +
+  xlab("time (min)") +
+  ylab(expression("cell length ( "*mu*"m)")) +   # μm
+  theme_classic2() +
+  theme(axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16),
+    #strip.text = element_text(size = 14) # texto de facetas
+    )
+
+cell_length_microscope
+
+```
+
+
+
+
+```{r}
+cells %>%
+  ggplot(aes(x=time,y=RFP,group=cell_id)) +
+  geom_line() +
+  xlab("time (min)") +
+  ylab("Average RFP (AU)") +
+  theme_classic()
+```
+
+
+
+
+
+```{r}
+
+library(scales)
+
+RFP_microscope <- 
+cells %>%
+  ggplot(aes(x = time, y = RFP)) +
+  # líneas individuales (cada celda), todas en gris con alpha
+  geom_line(aes(group = cell_id), color = "grey50", show.legend = FALSE) +
+  # destacar células 2 y 3 en negro
+  geom_line(
+    data = subset(cells, cell_id %in% c(2, 3)),
+    aes(group = cell_id),
+    color = "black", size = 0.8, show.legend = FALSE
+  ) +
+  # línea de la pendiente (regresión lineal) en azul
+  #geom_smooth(aes(group = 1), method = "lm", se = FALSE, color = "blue", size = 1) +
+  xlab("time (min)") +
+  ylab("eFlour670 (DsRed)") +
+  scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  theme_classic2() +
+  theme(axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16),
+    #strip.text = element_text(size = 14) # texto de facetas
+    )
+
+
+RFP_microscope
+
+```
+
+
+```{r}
+cells %>%
+  ggplot(aes(x = length_cell, y = RFP)) +
+  # líneas individuales (cada celda), todas en gris con alpha
+  geom_line(aes(group = cell_id), color = "grey50", alpha = 0.4, show.legend = FALSE) +
+  # destacar células 2 y 3 en negro
+  geom_line(
+    data = subset(cells, cell_id %in% c(2, 3)),
+    aes(group = cell_id),
+    color = "black", size = 0.8, show.legend = FALSE
+  ) +
+  # línea de la media
+  #stat_summary(fun = median, geom = "line", color = "red", size = 1, show.legend = FALSE) +
+  xlab("time (min)") +
+  ylab("Average RFP (AU)") +
+  theme_classic()
+
+```
+
+
+
+```{r}
+cells %>%
+  ggplot(aes(x=length_cell,y=RFP,group=cell_id,col=as.character(cell_id))) +
+  geom_point() +
+  geom_line() +
+  xlab("cell length (micrometers)") +
+  ylab("RFP") +
+  theme_classic()
+```
+
+
+```{r}
+cells %>%
+  ggplot(aes(x=(time-1)*10,y=log2(SA),group=cell_id)) +
+  geom_line() +
+  xlab("time (min)") +
+  ylab("SA") +
+  theme_classic()
+```
+
+
+```{r}
+cells %>%
+  ggplot(aes(x=(time-1)*10,y=log2(volume),group=cell_id)) +
+  geom_line() +
+  xlab("time (min)") +
+  ylab("volume") +
+  theme_classic()
+```
+
+
+
+
+```{r}
+library(grid)
+library(ggplot2)
+library(ggpubr)
+
+# leer TIFF con base R
+img <- tiff::readTIFF("C:/Users/Lenovo/Desktop/dilution_Effect/time_lapse_dilution_effect.tif")
+
+grid.raster(img, interpolate = TRUE)
+
+
+img_plot <-
+ggplot() +
+  annotation_custom(rasterGrob(img, interpolate = TRUE),
+                    xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) +
+  theme_void()
+
+img_plot
+```
+
+```{r}
+
+panel_EF <-
+ggarrange(cell_length_microscope,RFP_microscope,labels = c("",""),nrow = 2)
+
+panel_EF
+```
+
+
+
+
+
+```{r}
+
+# panel en blanco
+img_plot_ <- ggplot() +
+  theme_void()  # sin ejes, ticks ni fondo
+
+panel_microscopy <-
+ggarrange(img_plot_, panel_EF,
+                         labels = c("", ""),  # puedes poner letras nuevas
+                         ncol = 2,
+          widths = c(2, 1),
+          heights = c(5,1)
+          )
+
+panel_microscopy
+
+```
+

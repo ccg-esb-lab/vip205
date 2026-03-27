@@ -1,0 +1,220 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#load libraries
+library(here)
+library(reshape2)
+library(ggplot2)
+library(dplyr)
+library(plotrix)
+library(ggpubr)
+library(tidyverse)
+library(unikn)
+library(jcolors)
+library(grid)
+library(ggforce)
+library(flowCore)
+library(ggpointdensity)
+library(viridis)
+library(factoextra)
+library(googledrive)
+require(scales) # to access break formatting functions
+```
+
+
+
+```{r}
+#data link
+
+URL<- "https://drive.google.com/drive/folders/1eZo595uT96LmkdcSRGvKgrn-c6THqCzS"
+```
+
+
+```{r}
+#extract file names
+
+original_file_names<-
+  drive_ls(as_id(URL)) %>%
+      dplyr::filter(grepl("fcs",name)) %>%
+      #dplyr::filter(grepl("wo-IPTG",name)) %>%
+      dplyr::filter(grepl("IPTG",name)) %>%
+      dplyr::select(name) %>%
+      unlist()
+
+drive_files<-
+  drive_ls(as_id(URL)) %>%
+      dplyr::filter(grepl("fcs",name)) %>%
+      #dplyr::filter(grepl("wo-IPTG",name)) %>%
+      dplyr::filter(grepl("IPTG",name)) %>%
+      separate(col = name, into = c("strain", "time","IPTG","probe","rep"), sep = "_") %>%
+      #separate(col=time, into =c("time","strain"),sep="T") %>%
+      dplyr::select(strain,time,IPTG,probe,rep,id,drive_resource)
+     
+
+drive_files
+```
+
+
+
+```{r,warning=FALSE}
+# load data
+n<-nrow(drive_files)
+temp_data<-c()
+data_fcs<-c()
+count_n<-c()
+
+for (i in 1:n) {
+  path<- here("data","2025julio03_VIPdeltaRecA_dilution",print(original_file_names[i]))
+  
+  if (file.exists(path)==TRUE){
+  # no descargar archivo de nuevo
+  }else {
+  # Descargar archivo
+  drive_download(as_id(drive_files$id[i]), path = path)
+  }
+  
+  # Lee el archivo descargado con read.FCS
+  temp_data <- path %>%
+              read.FCS() %>%
+              `@`("exprs") |>
+              as.data.frame() %>%
+              dplyr::mutate(label=original_file_names[i]) %>%
+              dplyr::mutate(IPTG=as.character(drive_files[i,3])) %>%
+              dplyr::mutate(strain=as.character(drive_files[i,1])) %>%
+              dplyr::mutate(time=as.character(drive_files[i,2])) %>%
+              dplyr::mutate(probe=as.character(drive_files[i,4])) %>%
+              dplyr::mutate(rep=as.character(drive_files[i,5])) 
+  
+  count_n<- c(count_n,nrow(temp_data))
+  
+  temp_data <- temp_data %>%
+                dplyr::sample_n(10000, replace = FALSE) #select 10K events
+  
+  data_fcs<-bind_rows(data_fcs,temp_data)
+}
+
+
+```
+
+
+
+```{r}
+
+#diluted dye
+
+data_fcs %>%
+  dplyr::filter(`SSC-Width` > 0) %>%
+  dplyr::mutate(IPTG = ifelse(IPTG=="w-IPTG","Division (+IPTG)","No division (-IPTG)")) %>%
+  dplyr::filter(rep != "r4.fcs") %>%
+  dplyr::filter(probe == "w-s") %>%
+  dplyr::mutate(time = as.numeric(gsub("t","",time))) %>%
+  dplyr::filter(time <= 180) %>%
+  dplyr::filter(time %in% c(0,90,180)) %>%
+  dplyr::mutate(time = factor(paste0(time, " min"), levels = paste0(sort(unique(time)), " min"))) %>%
+  
+  
+  #############################################################
+  ggplot(aes(x=`SSC-Width`, y=log10(`FL4-A`/`SSC-Width`))) +
+  geom_density_2d_filled(contour_var = "ndensity") +
+  scale_fill_manual(values = c("transparent", colorRampPalette(c("gray", "black"))(9))) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  ylab("eFlour670 (log10)") +
+  xlab("SSC-Width (cell length)") +
+  facet_grid(IPTG ~ time) +
+  xlim(c(0,9000)) +
+  theme_classic2() +
+  theme(
+    legend.position = "none",
+    panel.border = element_rect(color = "black", fill = NA, size = 0.8),
+    axis.text.y = element_text(size = 14),
+    axis.text.x = element_text(size = 12),
+    axis.title = element_text(size = 16),
+    strip.text = element_text(size = 9) )
+```
+
+
+
+```{r}
+
+# Filamentation events (%)
+
+data_fcs %>%
+  dplyr::filter(`SSC-Width`>0) %>%
+  dplyr::mutate(IPTG=ifelse(IPTG=="w-IPTG","Division (+IPTG)","No division (-IPTG)")) %>%
+  dplyr::filter(rep!="r4.fcs") %>%
+  dplyr::filter(probe=="w-s") %>%
+  dplyr::mutate(time=as.numeric(gsub("t","",time))) %>%
+  dplyr::filter(time<=180) %>%
+  dplyr::mutate(cell_size=ifelse(`SSC-Width`>=1350,"Filamentation","Normal")) %>%
+  
+  dplyr::group_by(IPTG,time,cell_size,rep) %>%
+  count() %>%
+  group_by(IPTG, time, rep) %>%
+  mutate(percent = 100 * n / sum(n)) %>%
+  ungroup() %>%
+  dplyr::filter(cell_size=="Filamentation") %>%
+  
+  dplyr::mutate(ID=paste(IPTG,rep)) %>%
+  
+  #############################################
+
+  ggplot(aes(x=time,percent,group=ID,linetype=IPTG)) +
+  geom_line() +
+  ylab("Filamentation events (%)") +
+  xlab("time (min)")+
+  labs(linetype="") +
+  scale_x_continuous(breaks = seq(0, 180, by = 90)) +
+  facet_grid(IPTG~.) +
+  theme_classic2() +
+  theme(
+    legend.position = "top",      
+    strip.text = element_blank(),    
+    strip.background = element_blank(), 
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16))
+```
+
+
+
+```{r}
+
+#growth curves plot
+
+data.frame(
+  name = original_file_names,
+  count_n = count_n
+) %>%
+  separate(col = name, into = c("strain", "time","IPTG","probe","rep"), sep = "_") %>%
+  dplyr::mutate(time = as.numeric(gsub("t","",time))) %>%
+  dplyr::filter(time <= 180) %>%
+  dplyr::mutate(IPTG = ifelse(IPTG == "w-IPTG", "Division (+IPTG)", "No division (-IPTG)")) %>%
+  dplyr::mutate(ID = paste(IPTG, rep)) %>%
+  
+  ####################################################################
+  ggplot(aes(x = time, y = count_n*100, group = ID, linetype = IPTG)) +
+  geom_line() +
+  xlab("time (min)") +
+  ylab("# bacteria/mL") +
+  labs(linetype = "") +
+  scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  scale_x_continuous(breaks = seq(0, 180, by = 90)) +
+  facet_grid(IPTG ~ .) +
+  theme_classic2() +
+  theme(
+    legend.position = "top",        
+    strip.text = element_blank(),    
+    strip.background = element_blank(), 
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16))
+```
+
+
+
+
+
+
+

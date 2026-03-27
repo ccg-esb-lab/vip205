@@ -1,0 +1,59 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ubiquitous_filamentation <-
+  read.csv("./data/VIP205_Fig1B.csv")
+
+ubiquitous_filamentation
+```
+
+```{r}
+threshold <- 4.5
+
+percentage_data <-
+ubiquitous_filamentation %>%
+  dplyr::mutate(side = case_when(
+   log10(`SSC.A`) < threshold ~ "left",
+    log10(`SSC.A`) > threshold ~ "right",
+    TRUE ~ "equal"
+  ))  %>%
+  dplyr::filter(side!="equal") %>%
+  dplyr::group_by(label, side) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  dplyr::group_by(label) %>%
+  dplyr::mutate(percentage =round(n / sum(n) * 100, digits =  2)) %>%
+  dplyr::mutate(n_cells=sum(n)) 
+
+percentage_data
+
+```
+
+
+```{r}
+ubiquitous_filamentation %>%
+    ggplot(aes(x = log10(`SSC.A`),fill=label,col=label)) +
+    geom_density(alpha = 0.2, na.rm = TRUE) +
+    geom_vline(xintercept = threshold, linetype = "dashed", col = "black",size=1.2) +
+    ylab("density") +
+    xlab("cell area (log10)") +
+    labs(col = "# cells") +
+    scale_y_continuous(limits = c(0,6)) +
+    scale_x_continuous(limits = c(3,6)) +
+    facet_grid(label ~ .) +
+    guides(fill=FALSE,col=FALSE) +
+    theme_classic() +
+    geom_text(data = subset(percentage_data, side == "left"),
+              aes(x = threshold - 1, y = 4, label = paste0(percentage, "%")), color = "black") +
+    geom_text(data = subset(percentage_data, side == "right"),
+              aes(x = threshold + 1, y = 4, label = paste0(percentage, "%")), color = "black") 
+```
+
