@@ -60,11 +60,8 @@ This repository contains all the dta analysis and simulation code used to explor
 
 ### Figure 5
 
-- [`VIP205_Fig5_Cytometry.ipynb`](./VIP205_Fig5_Cytometry.ipynb)  
-  Flow cytometry analysis of survival under toxic stress. Includes PI-based viability measurements, time-resolved survival curves, and comparisons between elongated and non-elongated cells.
-
 - [`VIP205_Fig5_DeltaRecA_cytometry.ipynb`](./VIP205_Fig5_DeltaRecA_cytometry.ipynb)  
-  Equivalent cytometry-based survival analysis in the ΔrecA background.
+  Flow cytometry analysis of survival under toxic stress. Includes PI-based viability measurements, time-resolved survival curves, and comparisons between elongated and non-elongated cells.
 
 ---
 
